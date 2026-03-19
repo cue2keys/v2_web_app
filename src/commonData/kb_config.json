@@ -1,0 +1,370 @@
+[
+  {
+    "name": "mouse_layer_on",
+    "bit": 1,
+    "default": 1,
+    "max": 1,
+    "description": "Auto mouse layer (true/false)",
+    "description_ja": "自動マウスレイヤー (有効/無効)"
+  },
+  {
+    "name": "mouse_layer_off_delay_ms",
+    "bit": 6,
+    "default": 13,
+    "max": 63,
+    "description": "Auto mouse layer off delay time in ms (value * 100ms)",
+    "description_ja": "自動マウスレイヤーOFF遅延 (100ms単位)"
+  },
+  {
+    "name": "all_keys_are_mouse_keys",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "All keys are treated as mouse keys (true/false)",
+    "description_ja": "全キーをマウスキー扱い (有効/無効)"
+  },
+  {
+    "name": "trackball_timeout",
+    "bit": 2,
+    "default": 1,
+    "max": 3,
+    "description": "Trackball off timeout (never, 5min, 10min, 15min)",
+    "description_ja": "トラックボールスリープ (なし/5分/10分/15分)"
+  },
+  {
+    "name": "rescan_i2c_on_read_error",
+    "bit": 1,
+    "default": 1,
+    "max": 1,
+    "description": "Rescan I2C devices after consecutive read errors (true/false)",
+    "description_ja": "連続読取エラー時にI2C再スキャン (有効/無効)"
+  },
+  {
+    "name": "permissive_hold",
+    "bit": 1,
+    "default": 1,
+    "max": 1,
+    "description": "Permissive hold (true/false)",
+    "description_ja": "Permissive Hold (有効/無効)"
+  },
+  {
+    "name": "tapping_term_50ms",
+    "bit": 4,
+    "default": 6,
+    "max": 15,
+    "description": "Tapping term (ms, 50-425, 50 + (value * 25) ms)",
+    "description_ja": "タップ判定時間 (50-425ms、50+(値×25)ms)"
+  },
+  {
+    "name": "display_mode",
+    "bit": 2,
+    "default": 0,
+    "max": 2,
+    "description": "Display mode (0: Info, 1: U1 walking, 2: keypress)",
+    "description_ja": "ディスプレイ表示モード (0: Info, 1: U1 walking, 2: keypress)"
+  },
+  {
+    "name": "led_base_mode",
+    "bit": 2,
+    "default": 3,
+    "max": 3,
+    "description": "Pendant LED base mode (0: Off, 1: Layer, 2: RandomOnType, 3: Scanning)",
+    "description_ja": "ペンダントLEDベースモード (0: 消灯, 1: レイヤー, 2: 入力時ランダム点灯, 3: スキャン)"
+  },
+  {
+    "name": "tb_angle_1",
+    "bit": 9,
+    "default": 0,
+    "max": 359,
+    "description": "angle adjustment (degrees)",
+    "description_ja": "角度調整 (度)"
+  },
+  {
+    "name": "tb_drag_scroll_speed_magnification_1",
+    "bit": 4,
+    "default": 4,
+    "max": 15,
+    "description": "drag scroll speed magnification (value * 0.25)",
+    "description_ja": "ドラッグスクロール速度倍率 (値×0.25)"
+  },
+  {
+    "name": "tb_cpi_step_1",
+    "bit": 4,
+    "default": 3,
+    "max": 15,
+    "description": "CPI step index (value + 1) * 200 (200..3200)",
+    "description_ja": "CPIステップ (値+1)×200 (200..3200)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_x_1",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll X-axis (true/false)",
+    "description_ja": "ドラッグスクロールX反転 (有効/無効)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_y_1",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll Y-axis (true/false)",
+    "description_ja": "ドラッグスクロールY反転 (有効/無効)"
+  },
+  {
+    "name": "tb_angle_2",
+    "bit": 9,
+    "default": 0,
+    "max": 359,
+    "description": "angle adjustment (degrees)",
+    "description_ja": "角度調整 (度)"
+  },
+  {
+    "name": "tb_drag_scroll_speed_magnification_2",
+    "bit": 4,
+    "default": 4,
+    "max": 15,
+    "description": "drag scroll speed magnification (value * 0.25)",
+    "description_ja": "ドラッグスクロール速度倍率 (値×0.25)"
+  },
+  {
+    "name": "tb_cpi_step_2",
+    "bit": 4,
+    "default": 3,
+    "max": 15,
+    "description": "CPI step index (value + 1) * 200 (200..3200)",
+    "description_ja": "CPIステップ (値+1)×200 (200..3200)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_x_2",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll X-axis (true/false)",
+    "description_ja": "ドラッグスクロールX反転 (有効/無効)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_y_2",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll Y-axis (true/false)",
+    "description_ja": "ドラッグスクロールY反転 (有効/無効)"
+  },
+  {
+    "name": "tb_angle_3",
+    "bit": 9,
+    "default": 0,
+    "max": 359,
+    "description": "angle adjustment (degrees)",
+    "description_ja": "角度調整 (度)"
+  },
+  {
+    "name": "tb_drag_scroll_speed_magnification_3",
+    "bit": 4,
+    "default": 4,
+    "max": 15,
+    "description": "drag scroll speed magnification (value * 0.25)",
+    "description_ja": "ドラッグスクロール速度倍率 (値×0.25)"
+  },
+  {
+    "name": "tb_cpi_step_3",
+    "bit": 4,
+    "default": 3,
+    "max": 15,
+    "description": "CPI step index (value + 1) * 200 (200..3200)",
+    "description_ja": "CPIステップ (値+1)×200 (200..3200)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_x_3",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll X-axis (true/false)",
+    "description_ja": "ドラッグスクロールX反転 (有効/無効)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_y_3",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll Y-axis (true/false)",
+    "description_ja": "ドラッグスクロールY反転 (有効/無効)"
+  },
+  {
+    "name": "tb_angle_4",
+    "bit": 9,
+    "default": 0,
+    "max": 359,
+    "description": "angle adjustment (degrees)",
+    "description_ja": "角度調整 (度)"
+  },
+  {
+    "name": "tb_drag_scroll_speed_magnification_4",
+    "bit": 4,
+    "default": 4,
+    "max": 15,
+    "description": "drag scroll speed magnification (value * 0.25)",
+    "description_ja": "ドラッグスクロール速度倍率 (値×0.25)"
+  },
+  {
+    "name": "tb_cpi_step_4",
+    "bit": 4,
+    "default": 3,
+    "max": 15,
+    "description": "CPI step index (value + 1) * 200 (200..3200)",
+    "description_ja": "CPIステップ (値+1)×200 (200..3200)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_x_4",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll X-axis (true/false)",
+    "description_ja": "ドラッグスクロールX反転 (有効/無効)"
+  },
+  {
+    "name": "tb_invert_drag_scroll_y_4",
+    "bit": 1,
+    "default": 0,
+    "max": 1,
+    "description": "invert drag scroll Y-axis (true/false)",
+    "description_ja": "ドラッグスクロールY反転 (有効/無効)"
+  },
+  {
+    "name": "re_resolution_1",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 1 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー1"
+  },
+  {
+    "name": "re_resolution_2",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 2 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー2"
+  },
+  {
+    "name": "re_resolution_3",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 3 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー3"
+  },
+  {
+    "name": "re_resolution_4",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 4 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー4"
+  },
+  {
+    "name": "re_resolution_5",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 5 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー5"
+  },
+  {
+    "name": "re_resolution_6",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 6 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー6"
+  },
+  {
+    "name": "re_resolution_7",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 7 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー7"
+  },
+  {
+    "name": "re_resolution_8",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 8 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー8"
+  },
+  {
+    "name": "re_resolution_9",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 9 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー9"
+  },
+  {
+    "name": "re_resolution_10",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 10 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー10"
+  },
+  {
+    "name": "re_resolution_11",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 11 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー11"
+  },
+  {
+    "name": "re_resolution_12",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 12 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー12"
+  },
+  {
+    "name": "re_resolution_13",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 13 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー13"
+  },
+  {
+    "name": "re_resolution_14",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 14 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー14"
+  },
+  {
+    "name": "re_resolution_15",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 15 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー15"
+  },
+  {
+    "name": "re_resolution_16",
+    "bit": 2,
+    "default": 2,
+    "max": 3,
+    "description": "Rotary encoder 16 resolution (restart needed to reflect)",
+    "description_ja": "ロータリーエンコーダー16"
+  },
+  {
+    "name": "magkey_data_bytes",
+    "bit": 2,
+    "default": 0,
+    "max": 3,
+    "description": "マグネキー data resolution (0: 12bit, 1: 8bit, 2: 4bit, 3: 2bit)",
+    "description_ja": "マグネキーデータ解像度 (取得byte数)"
+  }
+]

@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# agent / assistant local files
+.agents/
+.claude/
+AGENTS.md
+CLAUDE.md
+
+# editor / misc
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# node / pnpm
+node_modules/
+.pnpm-store/
+.npm/
+
+# build output
+dist/
+build/
+.out/
+
+# caches
+.cache/
+.parcel-cache/
+.vite/
+.eslintcache
+coverage/
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*

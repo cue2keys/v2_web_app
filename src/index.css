@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme — vivid kawaii pastel palette */
+    --background: 38 55% 97.5%; /* #FEFAF5 warm cream */
+    --foreground: 0 0% 15%; /* #262626 */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    --primary: 152 60% 80%; /* #9EEECB light mint green */
+    --primary-foreground: 152 60% 14%; /* deep green */
+    --secondary: 24 80% 80%; /* #F5C4A0 peach */
+    --secondary-foreground: 0 0% 40%; /* muted text */
+    --tertiary: 275 65% 80%; /* #D4AEED lavender */
+    --tertiary-foreground: 0 0% 40%;
+    --muted: 36 40% 94%; /* #F5EEE4 warm beige */
+    --muted-foreground: 0 0% 36%;
+    --border: 28 28% 84%; /* #E2D5C8 */
+    --card-border: 338 55% 88%; /* #F5C8DA soft pink */
+    --input: 28 22% 82%; /* #E0D3C5 */
+    --ring: 152 60% 80%;
+    --radius: 1rem; /* slightly rounder */
+    --demo-banner-height: 1.5rem;
+
+    /* Rainbow gradient stops for header accent */
+    --grad-r1: #ffb3cc; /* pink */
+    --grad-r2: #ffcca8; /* peach */
+    --grad-r3: #ffe878; /* yellow */
+    --grad-r4: #88efc0; /* mint */
+    --grad-r5: #c0a0ff; /* lavender */
+    --grad-r6: #88ccff; /* sky */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    --destructive: 4 90% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --chart-1: 338 70% 70%;
+    --chart-2: 24 70% 72%;
+    --chart-3: 275 55% 74%;
+    --chart-4: 150 55% 68%;
+    --chart-5: 200 65% 68%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family:
+      'M PLUS Rounded 1c',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif;
+  }
+}
+
+/* ===== Component utilities ===== */
+.kbd-card {
+  @apply rounded-2xl border border-card-border bg-card p-4 text-card-foreground shadow-sm;
+}
+.kbd-title {
+  @apply text-base font-bold leading-none tracking-tight;
+}
+.kbd-row {
+  @apply my-2 flex items-start justify-start gap-2;
+}
+.kbd-muted {
+  @apply text-secondary-foreground;
+}
+.kbd-btn {
+  @apply inline-flex h-9 items-center justify-center whitespace-nowrap rounded-full bg-primary px-4 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+.kbd-icon-btn {
+  @apply h-9 w-9 px-0 leading-none;
+}
+.kbd-input {
+  @apply flex h-9 rounded-xl border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.kbd-select {
+  @apply flex h-9 w-full items-center justify-between rounded-xl border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+}
+.kbd-range {
+  @apply w-full;
+}
+.kbd-checkbox {
+  @apply h-4 w-4 shrink-0 rounded-md border border-input bg-background shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground;
+}
+.kbd-pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs font-medium text-foreground;
+}
+.kbd-grid {
+  @apply grid w-full gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.kbd-log {
+  @apply h-40 overflow-auto whitespace-pre-wrap rounded-xl border border-border bg-muted p-3 text-sm;
+}
+
+/* Rainbow gradient for header bottom accent */
+.bg-rainbow-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--grad-r1) 0%,
+    var(--grad-r2) 20%,
+    var(--grad-r3) 40%,
+    var(--grad-r4) 60%,
+    var(--grad-r5) 80%,
+    var(--grad-r6) 100%
+  );
+}
+
+.demo-mode-banner {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  height: var(--demo-banner-height);
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid hsl(36 65% 72% / 0.9);
+  background:
+    linear-gradient(90deg, hsl(43 100% 85% / 0.96), hsl(24 95% 82% / 0.96)), hsl(43 100% 88%);
+  color: hsl(18 45% 24%);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+}
+
+@keyframes walk-right {
+  from {
+    left: -32px;
+  }
+  to {
+    left: calc(100% + 32px);
+  }
+}
+.char-walk {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 44px;
+  width: auto;
+  animation: walk-right 30s linear infinite;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
