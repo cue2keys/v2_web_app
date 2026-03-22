@@ -66,7 +66,7 @@ export const RotaryEncoderSection: FC<Props> = ({
                       onClick={() => onWrite(p)}
                       disabled={!loaded[p.id]}
                     >
-                      Write
+                      書き込み
                     </Button>
                   </div>
                 </div>

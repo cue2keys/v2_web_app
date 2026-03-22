@@ -119,7 +119,7 @@ export const ParamCard: FC<Props> = ({ p, val, onChange, onRead, onWrite, loaded
               aria-label={`${p.label} に書き込み`}
               disabled={!loaded}
             >
-              Write
+              書き込み
             </Button>
           </div>
 

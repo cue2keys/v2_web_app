@@ -73,6 +73,7 @@ export function mapKbConfigToSchema(cfg: KbConfigItem[]): SchemaItem[] {
         return [
           { value: 0, label: 'Info' },
           { value: 1, label: 'U1 Walking' },
+          { value: 3, label: '入力デバイス表示' },
         ];
       }
       if (c.name === 'led_base_mode') {

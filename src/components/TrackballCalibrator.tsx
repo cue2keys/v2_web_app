@@ -151,7 +151,7 @@ export const TrackballCalibrator: FC<Props> = ({
                               handleAngleChange(0);
                             }}
                           >
-                            Write
+                            書き込み
                           </Button>
                         )}
                       </div>

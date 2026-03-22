@@ -77,7 +77,7 @@ export function DisplayLedControlPanel({
         applyErrorToast: { title: 'Apply failed' },
         keypressSuccessToast: (row, col) => ({
           title: 'Applied',
-          description: `Display switched to keypress ${row}/${col}`,
+          description: `Display switched to 指定キー表示 ${row}/${col}`,
         }),
         keypressErrorToast: { title: 'Apply failed' },
       }),
