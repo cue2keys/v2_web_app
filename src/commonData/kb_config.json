@@ -59,9 +59,9 @@
     "name": "display_mode",
     "bit": 2,
     "default": 0,
-    "max": 2,
-    "description": "Display mode (0: Info, 1: U1 walking, 2: keypress)",
-    "description_ja": "ディスプレイ表示モード (0: Info, 1: U1 walking, 2: keypress)"
+    "max": 3,
+    "description": "Display mode (0: Info, 1: U1 walking, 2: selected key, 3: input device)",
+    "description_ja": "ディスプレイ表示モード (0: Info, 1: U1 walking, 2: 指定キー表示, 3: 入力デバイス表示)"
   },
   {
     "name": "led_base_mode",

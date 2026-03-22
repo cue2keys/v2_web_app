@@ -18,7 +18,7 @@ interface ModeSettingsActionsArgs {
   commitParam: (p: SchemaItem, val: ParamValue) => Promise<void>;
 }
 
-const DISPLAY_MODE_KEYPRESS = 2;
+const DISPLAY_MODE_SELECTED_KEY = 2;
 
 export function useModeSettingsActions({ readParam, commitParam }: ModeSettingsActionsArgs) {
   const { deviceRef, setTrackballConnected, setTrackballFlagCount, setDisplayMode, setLedMode } =
@@ -124,7 +124,7 @@ export function useModeSettingsActions({ readParam, commitParam }: ModeSettingsA
         HIDCommandValueID.set_display_keypress_target,
         payload,
       );
-      setDisplayMode(DISPLAY_MODE_KEYPRESS);
+      setDisplayMode(DISPLAY_MODE_SELECTED_KEY);
     },
     [deviceRef, setDisplayMode],
   );

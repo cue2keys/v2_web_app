@@ -42,14 +42,14 @@ export const OtherSection: FC<Props> = ({
     fwInfo,
     deviceRef,
     latestFirmwareVersion,
-    latestReleaseUrl,
+    latestFirmwareDownloadUrl,
     updateAvailable,
     firmwareCheckState,
   } = useDeviceStore((state) => ({
     fwInfo: state.fwInfo,
     deviceRef: state.deviceRef,
     latestFirmwareVersion: state.latestFirmwareVersion,
-    latestReleaseUrl: state.latestReleaseUrl,
+    latestFirmwareDownloadUrl: state.latestFirmwareDownloadUrl,
     updateAvailable: state.updateAvailable,
     firmwareCheckState: state.firmwareCheckState,
   }));
@@ -71,15 +71,15 @@ export const OtherSection: FC<Props> = ({
   const firmwareStatusText = (() => {
     if (firmwareCheckState === 'checking') return '最新版を確認中';
     if (firmwareCheckState === 'error') return '最新版を取得できません';
-    if (updateAvailable) return '更新できます';
+    if (updateAvailable) return '最新ファームウェアがあります';
     if (!latestFirmwareVersion) return '-';
     if (firmwareComparison === null) return '比較できません';
-    if (firmwareComparison > 0) return 'GitHub より新しい FW です';
-    return '最新です';
+    if (firmwareComparison > 0) return '公開中の最新版より新しい FW です';
+    return '最新バージョンです';
   })();
-  const handleOpenRelease = () => {
-    if (!latestReleaseUrl) return;
-    window.open(latestReleaseUrl, '_blank', 'noopener,noreferrer');
+  const handleDownloadFirmware = () => {
+    if (!latestFirmwareDownloadUrl) return;
+    window.open(latestFirmwareDownloadUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -98,20 +98,35 @@ export const OtherSection: FC<Props> = ({
                   <span>Latest</span>
                   <span>{latestFirmwareVersion || '-'}</span>
                   <span>Status</span>
-                  <span>{firmwareStatusText}</span>
+                  <span>
+                    {updateAvailable && latestFirmwareDownloadUrl ? (
+                      <button
+                        type="button"
+                        onClick={handleDownloadFirmware}
+                        className="text-left text-foreground underline underline-offset-2"
+                      >
+                        {firmwareStatusText}
+                      </button>
+                    ) : (
+                      firmwareStatusText
+                    )}
+                  </span>
                   <span>VID</span>
                   <span>{formatUsbId(deviceInfo.vendorId)}</span>
                   <span>PID</span>
                   <span>{formatUsbId(deviceInfo.productId)}</span>
                 </div>
-                {updateAvailable && latestReleaseUrl && (
+                {updateAvailable && latestFirmwareDownloadUrl && (
                   <div className="rounded-2xl border border-border bg-secondary/35 p-3">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div className="text-sm text-secondary-foreground">
-                        GitHub release に新しい firmware があります。
+                        公開中の最新版を取得できます。
                       </div>
-                      <Button onClick={handleOpenRelease} aria-label="Open latest firmware release">
-                        更新する
+                      <Button
+                        onClick={handleDownloadFirmware}
+                        aria-label="Download latest firmware uf2"
+                      >
+                        ダウンロード
                       </Button>
                     </div>
                   </div>

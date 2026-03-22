@@ -169,7 +169,7 @@ export const MagkeyControls: FC<Props> = ({
             disabled={magkeyDisabled}
             aria-label="Apply マグネキー values"
           >
-            Write
+            書き込み
           </Button>
         </div>
       </div>

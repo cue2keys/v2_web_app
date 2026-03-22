@@ -10,7 +10,7 @@ import type { DeviceNicknames } from '@/lib/deviceNicknames';
 import { ChevronDown, Cylinder, Keyboard, Magnet, Pencil, Presentation } from 'lucide-react';
 import { type FC, useMemo, useState } from 'react';
 import { v2_display_addr_label } from '../commonData/utils';
-import { deviceTypeName } from '../lib/format';
+import { deviceTypeName, toHex } from '../lib/format';
 import { AddressEditor } from './AddressEditor';
 import { NicknameEditor } from './NicknameEditor';
 import { Button } from './ui/button';
@@ -144,7 +144,12 @@ export const DeviceTable: FC<DeviceTableProps> = ({
                     disabled={!canEditI2CAddress(d.type)}
                   />
                 </td>
-                <td className="py-1 pr-3">{recognitionLabel}</td>
+                <td className="py-1 pr-3">
+                  <span className="inline-flex items-baseline gap-1">
+                    <span>{recognitionLabel}</span>
+                    <span className="text-xs text-secondary-foreground">({toHex(d.addr)})</span>
+                  </span>
+                </td>
                 <td className="py-1 pr-3">
                   <span className="inline-flex items-center gap-2">
                     {TypeIcon ? (

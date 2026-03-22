@@ -11,6 +11,7 @@ import { Select, SelectItem } from './ui/select';
 const displayOptions = [
   { value: 0, label: 'Info' },
   { value: 1, label: 'U1 Walking' },
+  { value: 3, label: '入力デバイス表示' },
 ];
 
 const ledOptions = [
@@ -63,7 +64,10 @@ export const DisplayLedPanel: FC<Props> = ({
   const displayLabel =
     displayMode === null
       ? '未取得'
-      : (displayOptions.find((o) => o.value === displayMode)?.label ?? 'Keypress');
+      : displayMode === 2
+        ? '指定キー表示'
+        : (displayOptions.find((o) => o.value === displayMode)?.label ??
+          `Unknown (${displayMode})`);
   const ledLabel =
     ledMode === null
       ? '未取得'
@@ -140,7 +144,7 @@ export const DisplayLedPanel: FC<Props> = ({
                 disabled={!ready}
                 aria-label="Apply display / LED settings"
               >
-                Apply
+                適用
               </Button>
             </div>
           </div>
@@ -148,7 +152,7 @@ export const DisplayLedPanel: FC<Props> = ({
           {showDisplay && (
             <div className="rounded-2xl border border-border/70 bg-muted/20 p-4">
               <div className="mb-3 text-xs font-semibold text-secondary-foreground">
-                Keypress Target
+                指定キー表示
               </div>
               <div className="grid gap-3 md:grid-cols-[auto_auto_auto] md:items-end">
                 <div className="flex flex-col gap-2">
@@ -179,12 +183,12 @@ export const DisplayLedPanel: FC<Props> = ({
                   onClick={() => void onShowKeypressTarget(keypressRow, keypressCol)}
                   disabled={displayMode === null}
                 >
-                  Show Keypress
+                  指定キー表示に切替
                 </Button>
               </div>
               <div className="mt-2 text-sm text-secondary-foreground">
-                指定した Row / Col を OLED の Keypress
-                表示に切り替えます。再起動すると情報表示に戻ります。
+                指定した Row / Col を OLED
+                の指定キー表示に切り替えます。再起動すると情報表示に戻ります。
               </div>
             </div>
           )}
