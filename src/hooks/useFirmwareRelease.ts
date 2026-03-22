@@ -13,14 +13,14 @@ interface UseFirmwareReleaseArgs {
 export function useFirmwareRelease({ currentFirmware, enabled }: UseFirmwareReleaseArgs) {
   const {
     setLatestFirmwareVersion,
-    setLatestReleaseUrl,
+    setLatestFirmwareDownloadUrl,
     setUpdateAvailable,
     setFirmwareCheckState,
     resetFirmwareReleaseInfo,
   } = useDeviceStore(
     useShallow((state) => ({
       setLatestFirmwareVersion: state.setLatestFirmwareVersion,
-      setLatestReleaseUrl: state.setLatestReleaseUrl,
+      setLatestFirmwareDownloadUrl: state.setLatestFirmwareDownloadUrl,
       setUpdateAvailable: state.setUpdateAvailable,
       setFirmwareCheckState: state.setFirmwareCheckState,
       resetFirmwareReleaseInfo: state.resetFirmwareReleaseInfo,
@@ -41,7 +41,7 @@ export function useFirmwareRelease({ currentFirmware, enabled }: UseFirmwareRele
         const release = await fetchLatestFirmwareRelease();
         if (cancelled) return;
         setLatestFirmwareVersion(release.firmwareVersion);
-        setLatestReleaseUrl(release.releaseUrl);
+        setLatestFirmwareDownloadUrl(release.downloadUrl);
         setUpdateAvailable(isFirmwareUpdateAvailable(currentFirmware, release.firmwareVersion));
         setFirmwareCheckState('ready');
       } catch (error) {
@@ -60,8 +60,8 @@ export function useFirmwareRelease({ currentFirmware, enabled }: UseFirmwareRele
     enabled,
     resetFirmwareReleaseInfo,
     setFirmwareCheckState,
+    setLatestFirmwareDownloadUrl,
     setLatestFirmwareVersion,
-    setLatestReleaseUrl,
     setUpdateAvailable,
   ]);
 }

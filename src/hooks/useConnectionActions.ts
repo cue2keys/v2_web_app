@@ -58,9 +58,11 @@ export function useConnectionActions({
 
   function parseGetInfo(u8: PktT): string {
     try {
-      const data = u8.data.slice(0, u8.data.length);
+      const dataLength = u8.headers?.dataLength ?? u8.data.length;
+      const data = u8.data.slice(0, dataLength);
       logger.log(data);
-      const ascii = Array.from(data)
+      const zeroIndex = data.findIndex((b) => b === 0);
+      const ascii = Array.from(zeroIndex >= 0 ? data.slice(0, zeroIndex) : data)
         .map((b) => String.fromCharCode(b & 0x7f))
         .join('')
         .trim();

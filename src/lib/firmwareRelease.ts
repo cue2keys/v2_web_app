@@ -1,35 +1,26 @@
-const GITHUB_LATEST_RELEASE_URL = 'https://api.github.com/repos/cue2keys/v2_qmk_fw/releases/latest';
+const GITHUB_LATEST_RELEASE_API_URL =
+  'https://api.github.com/repos/cue2keys/v2_qmk_fw/releases/latest';
 const SEMVER_RE = /^\d+(?:\.\d+)*$/;
+const PREFXED_SEMVER_RE = /^[vV](\d+(?:\.\d+)*)$/;
 const LEGACY_FIRMWARE_VERSION_RE = /^\d{8}-(\d+(?:\.\d+)*)$/;
+const EMBEDDED_PREFXED_SEMVER_RE = /[vV](\d+(?:\.\d+)*)/;
+const EMBEDDED_SEMVER_RE = /(\d+(?:\.\d+)*)/;
 
 interface GitHubReleaseAsset {
   name: string;
-  browser_download_url: string;
+  browser_download_url?: string;
 }
 
 interface GitHubReleaseResponse {
-  html_url: string;
-  assets: GitHubReleaseAsset[];
-}
-
-interface FirmwareManifestArtifact {
-  name: string;
-  sha256: string;
-}
-
-interface FirmwareManifest {
-  qmk?: {
-    firmware_version?: string;
-    release_url?: string;
-    uf2?: FirmwareManifestArtifact;
-  };
+  tag_name?: string;
+  html_url?: string;
+  assets?: GitHubReleaseAsset[];
 }
 
 export interface FirmwareReleaseInfo {
   firmwareVersion: string;
+  downloadUrl: string;
   releaseUrl: string;
-  uf2Name: string;
-  uf2Sha256: string;
 }
 
 function normalizeFirmwareVersion(version: string): string | null {
@@ -37,9 +28,24 @@ function normalizeFirmwareVersion(version: string): string | null {
   if (!trimmed) return null;
   if (SEMVER_RE.test(trimmed)) return trimmed;
 
+  const prefixedSemverMatch = PREFXED_SEMVER_RE.exec(trimmed);
+  if (prefixedSemverMatch) {
+    return prefixedSemverMatch[1] ?? null;
+  }
+
   const legacyMatch = LEGACY_FIRMWARE_VERSION_RE.exec(trimmed);
-  if (!legacyMatch) return null;
-  return legacyMatch[1] ?? null;
+  if (legacyMatch) {
+    return legacyMatch[1] ?? null;
+  }
+
+  const embeddedPrefixedSemverMatch = EMBEDDED_PREFXED_SEMVER_RE.exec(trimmed);
+  if (embeddedPrefixedSemverMatch) {
+    return embeddedPrefixedSemverMatch[1] ?? null;
+  }
+
+  const embeddedSemverMatch = EMBEDDED_SEMVER_RE.exec(trimmed);
+  if (!embeddedSemverMatch) return null;
+  return embeddedSemverMatch[1] ?? null;
 }
 
 function parseFirmwareVersion(version: string) {
@@ -71,41 +77,38 @@ export function isFirmwareUpdateAvailable(current: string, latest: string): bool
   return comparison === null ? false : comparison < 0;
 }
 
+function getReleaseDownloadUrl(release: GitHubReleaseResponse): string {
+  const releaseUf2Asset = release.assets?.find(
+    (asset) =>
+      asset.name.endsWith('.uf2') &&
+      !asset.name.endsWith('_debug.uf2') &&
+      Boolean(asset.browser_download_url),
+  );
+  return releaseUf2Asset?.browser_download_url ?? '';
+}
+
 export async function fetchLatestFirmwareRelease(): Promise<FirmwareReleaseInfo> {
-  const releaseResponse = await fetch(GITHUB_LATEST_RELEASE_URL, {
-    headers: { Accept: 'application/vnd.github+json' },
+  const releaseResponse = await fetch(GITHUB_LATEST_RELEASE_API_URL, {
+    headers: {
+      Accept: 'application/vnd.github+json',
+    },
   });
   if (!releaseResponse.ok) {
     throw new Error(`latest release request failed: ${releaseResponse.status}`);
   }
 
   const release = (await releaseResponse.json()) as GitHubReleaseResponse;
-  const manifestAsset = release.assets.find((asset) => asset.name === 'manifest.json');
-  if (!manifestAsset) {
-    throw new Error('manifest.json not found in latest release');
+  const firmwareVersion = normalizeFirmwareVersion(release.tag_name ?? '');
+  const releaseUrl = release.html_url?.trim() ?? '';
+  if (!firmwareVersion || !releaseUrl) {
+    throw new Error('latest release response is missing version metadata');
   }
 
-  const manifestResponse = await fetch(manifestAsset.browser_download_url, {
-    headers: { Accept: 'application/json' },
-  });
-  if (!manifestResponse.ok) {
-    throw new Error(`manifest request failed: ${manifestResponse.status}`);
-  }
-
-  const manifest = (await manifestResponse.json()) as FirmwareManifest;
-  const firmwareVersion = manifest.qmk?.firmware_version?.trim() ?? '';
-  const releaseUrl = manifest.qmk?.release_url?.trim() || release.html_url;
-  const uf2Name = manifest.qmk?.uf2?.name?.trim() ?? '';
-  const uf2Sha256 = manifest.qmk?.uf2?.sha256?.trim() ?? '';
-
-  if (!firmwareVersion || !releaseUrl || !uf2Name || !uf2Sha256) {
-    throw new Error('latest firmware manifest is missing qmk release metadata');
-  }
+  const downloadUrl = getReleaseDownloadUrl(release) || releaseUrl;
 
   return {
     firmwareVersion,
+    downloadUrl,
     releaseUrl,
-    uf2Name,
-    uf2Sha256,
   };
 }

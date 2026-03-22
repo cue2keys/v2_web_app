@@ -13,7 +13,7 @@ interface DeviceState {
   demoMode: boolean;
   fwInfo: string;
   latestFirmwareVersion: string;
-  latestReleaseUrl: string;
+  latestFirmwareDownloadUrl: string;
   updateAvailable: boolean;
   firmwareCheckState: FirmwareCheckState;
   deviceNicknames: DeviceNicknames;
@@ -27,7 +27,7 @@ interface DeviceState {
   setDemoMode: (demoMode: boolean) => void;
   setFwInfo: (fwInfo: string) => void;
   setLatestFirmwareVersion: (latestFirmwareVersion: string) => void;
-  setLatestReleaseUrl: (latestReleaseUrl: string) => void;
+  setLatestFirmwareDownloadUrl: (latestFirmwareDownloadUrl: string) => void;
   setUpdateAvailable: (updateAvailable: boolean) => void;
   setFirmwareCheckState: (firmwareCheckState: FirmwareCheckState) => void;
   resetFirmwareReleaseInfo: () => void;
@@ -48,7 +48,7 @@ export const useDeviceStore = create<DeviceState>()((set) => ({
   demoMode: false,
   fwInfo: '',
   latestFirmwareVersion: '',
-  latestReleaseUrl: '',
+  latestFirmwareDownloadUrl: '',
   updateAvailable: false,
   firmwareCheckState: 'idle',
   deviceNicknames: {},
@@ -62,13 +62,13 @@ export const useDeviceStore = create<DeviceState>()((set) => ({
   setDemoMode: (demoMode) => set({ demoMode }),
   setFwInfo: (fwInfo) => set({ fwInfo }),
   setLatestFirmwareVersion: (latestFirmwareVersion) => set({ latestFirmwareVersion }),
-  setLatestReleaseUrl: (latestReleaseUrl) => set({ latestReleaseUrl }),
+  setLatestFirmwareDownloadUrl: (latestFirmwareDownloadUrl) => set({ latestFirmwareDownloadUrl }),
   setUpdateAvailable: (updateAvailable) => set({ updateAvailable }),
   setFirmwareCheckState: (firmwareCheckState) => set({ firmwareCheckState }),
   resetFirmwareReleaseInfo: () =>
     set({
       latestFirmwareVersion: '',
-      latestReleaseUrl: '',
+      latestFirmwareDownloadUrl: '',
       updateAvailable: false,
       firmwareCheckState: 'idle',
     }),
@@ -89,7 +89,7 @@ export const useDeviceStore = create<DeviceState>()((set) => ({
       demoMode: false,
       fwInfo: '',
       latestFirmwareVersion: '',
-      latestReleaseUrl: '',
+      latestFirmwareDownloadUrl: '',
       updateAvailable: false,
       firmwareCheckState: 'idle',
       devList: [],
