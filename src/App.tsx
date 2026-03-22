@@ -205,6 +205,7 @@ export function App() {
                       onUpdateAddress={updateI2CAddress}
                       onReadMagkeyConfigFor={readMagkeyConfigFor}
                       onReadKeypressFor={readKeypressFor}
+                      onShowDisplayKeypressTarget={sendDisplayKeypressTarget}
                       onWriteMagkeyConfigFor={commitMagkeyConfigFor}
                     />
                   )}

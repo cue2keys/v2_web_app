@@ -22,6 +22,7 @@ interface Props {
     rapid: boolean;
   }>;
   onReadKeypressFor: (row: number, col: number) => Promise<number | null>;
+  onShowDisplayKeypressTarget: (row: number, col: number) => Promise<void>;
   onWriteMagkeyConfigFor: (
     row: number,
     col: number,
@@ -36,6 +37,7 @@ export const DeviceSection: FC<Props> = ({
   onUpdateAddress,
   onReadMagkeyConfigFor,
   onReadKeypressFor,
+  onShowDisplayKeypressTarget,
   onWriteMagkeyConfigFor,
 }) => {
   const { createWriteAction } = useSettingsActionFeedback();
@@ -117,6 +119,7 @@ export const DeviceSection: FC<Props> = ({
         device={magkeyDevice}
         onReadConfig={onReadMagkeyConfigFor}
         onReadKeypress={onReadKeypressFor}
+        onShowDisplayKeypressTarget={onShowDisplayKeypressTarget}
         onWriteConfig={onWriteMagkeyConfigFor}
         onClose={() => setMagkeyDevice(null)}
       />

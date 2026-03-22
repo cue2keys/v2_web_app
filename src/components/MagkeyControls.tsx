@@ -25,7 +25,10 @@ interface Props {
   onChangeMagkeyRelease: (next: number) => void;
   onChangeMagkeyRapid: (next: boolean) => void;
   onReadMagkeyConfig: () => void | Promise<void>;
+  onShowDisplayKeypressTarget?: () => void | Promise<void>;
   onWriteMagkeyConfig: () => void | Promise<void>;
+  showDisplayTargetAction?: boolean;
+  displayTargetActionDisabled?: boolean;
 }
 
 export const MagkeyControls: FC<Props> = ({
@@ -46,10 +49,15 @@ export const MagkeyControls: FC<Props> = ({
   onChangeMagkeyRelease,
   onChangeMagkeyRapid,
   onReadMagkeyConfig,
+  onShowDisplayKeypressTarget,
   onWriteMagkeyConfig,
+  showDisplayTargetAction = false,
+  displayTargetActionDisabled = false,
 }) => {
   const magkeyDisabled = !magkeyReady || magkeyBusy;
   const baselineOffset = baselineValue ?? 0;
+  const displayActionDisabled =
+    magkeyDisabled || displayTargetActionDisabled || !onShowDisplayKeypressTarget;
 
   return (
     <div className="flex flex-col gap-3">
@@ -171,6 +179,17 @@ export const MagkeyControls: FC<Props> = ({
           >
             書き込み
           </Button>
+          {showDisplayTargetAction && (
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => void onShowDisplayKeypressTarget?.()}
+              disabled={displayActionDisabled}
+              aria-label="Show マグネキー target on display"
+            >
+              ディスプレイに表示
+            </Button>
+          )}
         </div>
       </div>
     </div>

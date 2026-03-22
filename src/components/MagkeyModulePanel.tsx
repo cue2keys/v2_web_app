@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import type { DeviceItemT } from '@/generated/pendant/v2';
+import { useSettingsActionFeedback } from '@/hooks/useSettingsActionFeedback';
 import { Info } from 'lucide-react';
 import { useMagkeyModule, type MagkeyConfig } from '@/hooks/useMagkeyModule';
 import { KeypressPanel } from './KeypressPanel';
@@ -12,6 +13,7 @@ interface Props {
   device: DeviceItemT | null;
   onReadConfig: (row: number, col: number) => Promise<MagkeyConfig>;
   onReadKeypress: (row: number, col: number) => Promise<number | null>;
+  onShowDisplayKeypressTarget: (row: number, col: number) => Promise<void>;
   onWriteConfig: (
     row: number,
     col: number,
@@ -26,9 +28,11 @@ export const MagkeyModulePanel: FC<Props> = ({
   device,
   onReadConfig,
   onReadKeypress,
+  onShowDisplayKeypressTarget,
   onWriteConfig,
   onClose,
 }) => {
+  const { createWriteAction } = useSettingsActionFeedback();
   const {
     keys,
     ignoreBaseline,
@@ -57,6 +61,15 @@ export const MagkeyModulePanel: FC<Props> = ({
     handleSavePreset,
     handleApplyPreset,
   } = useMagkeyModule({ device, onReadConfig, onReadKeypress, onWriteConfig });
+
+  const handleShowOnDisplay = createWriteAction(onShowDisplayKeypressTarget, {
+    logPrefix: 'display keypress err',
+    successToast: (_, row, col) => ({
+      title: 'Applied',
+      description: `Display switched to 指定キー表示 ${row}/${col}`,
+    }),
+    errorToast: { title: 'Apply failed' },
+  });
 
   if (!device || !isMagkeyModule) return null;
 
@@ -139,8 +152,10 @@ export const MagkeyModulePanel: FC<Props> = ({
               </div>
             }
             showKeypressControls={false}
+            showDisplayTargetAction
             showMagkeyGraph
             className="my-0"
+            displayTargetActionDisabled={!key.valid || key.busy}
             onChangeRow={() => {
               /* no-op */
             }}
@@ -151,6 +166,7 @@ export const MagkeyModulePanel: FC<Props> = ({
               /* no-op */
             }}
             onReadMagkeyConfig={() => void handleRead(idx)}
+            onShowDisplayKeypressTarget={() => void handleShowOnDisplay(key.row, key.col)}
             onWriteMagkeyConfig={() => void handleWrite(idx)}
             onChangeMagkeyActuation={(next) => updateKey(idx, { actuation: next })}
             onChangeMagkeyRelease={(next) => handleChangeKeyRelease(idx, next)}

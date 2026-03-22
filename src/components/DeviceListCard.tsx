@@ -3,10 +3,10 @@ import { classifyDevices } from '@/lib/deviceList';
 import { pushToast } from '@/lib/toast';
 import { buildViaKeyboardDefinition, getViaExportDevices } from '@/lib/via';
 import type { DeviceNicknames } from '@/lib/deviceNicknames';
-import { Download, RotateCw } from 'lucide-react';
+import { ArrowUpRight, Download, RotateCw } from 'lucide-react';
 import { type FC, useMemo } from 'react';
 import { DeviceTable } from './DeviceTable';
-import { Button } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import { Card, CardContent, CardTitle } from './ui/card';
 
 interface Props {
@@ -46,6 +46,10 @@ export const DeviceListCard: FC<Props> = ({
     onUpdateNickname,
   };
   const canExportVia = viaExportDevices.length > 0;
+  const remapUrl = 'https://remap-keys.app/configure';
+  const exportGuideText = canExportVia
+    ? '1. via.jsonを出力 2. REMAPでダウンロードしたファイルを読み込んでキーマップを編集'
+    : 'VIA対応デバイスを接続すると via.json を出力できます。REMAP はそのあとに使います。';
 
   const handleDownloadVia = () => {
     try {
@@ -61,7 +65,7 @@ export const DeviceListCard: FC<Props> = ({
       window.URL.revokeObjectURL(url);
       pushToast({
         title: 'Downloaded',
-        description: 'cue2keys-via.json saved',
+        description: 'cue2keys-via.json saved. Open it in REMAP to edit keymaps.',
         type: 'success',
       });
     } catch (error) {
@@ -138,23 +142,44 @@ export const DeviceListCard: FC<Props> = ({
         </CardContent>
       </Card>
 
-      <div className="mb-4 mt-4 flex items-center gap-2">
-        <Button
-          className="h-9 px-3"
-          variant="secondary"
-          onClick={handleDownloadVia}
-          disabled={!canExportVia}
-          title={
-            canExportVia
-              ? 'Export VIA/REMAP keyboard definition'
-              : 'VIA exportable devices not found'
-          }
-        >
-          <span className="inline-flex items-center gap-2">
-            <Download size={18} aria-hidden />
-            <span>ぴったりのvia.jsonを出力する</span>
-          </span>
-        </Button>
+      <div className="mb-4 mt-4 rounded-2xl border border-border/60 bg-secondary/15 p-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div className="space-y-1">
+            <p className="text-sm font-medium">VIA / REMAPでキーマップを編集</p>
+            <p className="text-xs text-secondary-foreground">{exportGuideText}</p>
+          </div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+            <Button
+              className="h-9 px-3"
+              variant="secondary"
+              onClick={handleDownloadVia}
+              disabled={!canExportVia}
+              title={
+                canExportVia
+                  ? 'Export VIA/REMAP keyboard definition'
+                  : 'VIA exportable devices not found'
+              }
+            >
+              <span className="inline-flex items-center gap-2">
+                <Download size={18} aria-hidden />
+                <span>ぴったりのvia.jsonを出力する</span>
+              </span>
+            </Button>
+            <a
+              href={remapUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: 'outline', size: 'default' })}
+              aria-label="REMAPを新しいタブで開く"
+              title="Open REMAP in a new tab"
+            >
+              <span className="inline-flex items-center gap-2">
+                <span>REMAPで開く</span>
+                <ArrowUpRight size={18} aria-hidden />
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -22,13 +22,16 @@ interface Props {
   magkeyBaseline?: number | null;
   title?: ReactNode;
   showKeypressControls?: boolean;
+  showDisplayTargetAction?: boolean;
   showMagkeyControls?: boolean;
   showMagkeyGraph?: boolean;
   className?: string;
+  displayTargetActionDisabled?: boolean;
   onChangeRow: (next: number) => void;
   onChangeCol: (next: number) => void;
   onRead: () => void | Promise<void>;
   onReadMagkeyConfig: () => void | Promise<void>;
+  onShowDisplayKeypressTarget?: () => void | Promise<void>;
   onWriteMagkeyConfig: () => void | Promise<void>;
   onChangeMagkeyActuation: (next: number) => void;
   onChangeMagkeyRelease: (next: number) => void;
@@ -49,13 +52,16 @@ export const KeypressPanel: FC<Props> = ({
   magkeyBaseline = null,
   title = 'マグネキー / Keypress',
   showKeypressControls = true,
+  showDisplayTargetAction = false,
   showMagkeyControls = true,
   showMagkeyGraph = false,
   className = 'my-6',
+  displayTargetActionDisabled = false,
   onChangeRow,
   onChangeCol,
   onRead,
   onReadMagkeyConfig,
+  onShowDisplayKeypressTarget,
   onWriteMagkeyConfig,
   onChangeMagkeyActuation,
   onChangeMagkeyRelease,
@@ -176,7 +182,10 @@ export const KeypressPanel: FC<Props> = ({
                 onChangeMagkeyRelease={onChangeMagkeyRelease}
                 onChangeMagkeyRapid={onChangeMagkeyRapid}
                 onReadMagkeyConfig={onReadMagkeyConfig}
+                onShowDisplayKeypressTarget={onShowDisplayKeypressTarget}
                 onWriteMagkeyConfig={onWriteMagkeyConfig}
+                showDisplayTargetAction={showDisplayTargetAction}
+                displayTargetActionDisabled={displayTargetActionDisabled}
               />
               {showMagkeyGraph && (
                 <MagkeyGraph
