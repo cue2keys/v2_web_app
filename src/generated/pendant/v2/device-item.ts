@@ -6,89 +6,87 @@ import * as flatbuffers from 'flatbuffers';
 
 import { ModuleType } from '../../pendant/v2/module-type.js';
 
-
 export class DeviceItem implements flatbuffers.IUnpackableObject<DeviceItemT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):DeviceItem {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): DeviceItem {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-ch():number {
-  return this.bb!.readUint8(this.bb_pos);
-}
+  ch(): number {
+    return this.bb!.readUint8(this.bb_pos);
+  }
 
-addr():number {
-  return this.bb!.readUint8(this.bb_pos + 1);
-}
+  addr(): number {
+    return this.bb!.readUint8(this.bb_pos + 1);
+  }
 
-type():ModuleType {
-  return this.bb!.readUint8(this.bb_pos + 2);
-}
+  type(): ModuleType {
+    return this.bb!.readUint8(this.bb_pos + 2);
+  }
 
-shift():number {
-  return this.bb!.readUint8(this.bb_pos + 3);
-}
+  shift(): number {
+    return this.bb!.readUint8(this.bb_pos + 3);
+  }
 
-uid():bigint {
-  return this.bb!.readUint64(this.bb_pos + 8);
-}
+  uid(): bigint {
+    return this.bb!.readUint64(this.bb_pos + 8);
+  }
 
-static sizeOf():number {
-  return 16;
-}
+  static sizeOf(): number {
+    return 16;
+  }
 
-static createDeviceItem(builder:flatbuffers.Builder, ch: number, addr: number, type: ModuleType, shift: number, uid: bigint):flatbuffers.Offset {
-  builder.prep(8, 16);
-  builder.writeInt64(BigInt(uid ?? 0));
-  builder.pad(4);
-  builder.writeInt8(shift);
-  builder.writeInt8(type);
-  builder.writeInt8(addr);
-  builder.writeInt8(ch);
-  return builder.offset();
-}
+  static createDeviceItem(
+    builder: flatbuffers.Builder,
+    ch: number,
+    addr: number,
+    type: ModuleType,
+    shift: number,
+    uid: bigint,
+  ): flatbuffers.Offset {
+    builder.prep(8, 16);
+    builder.writeInt64(BigInt(uid ?? 0));
+    builder.pad(4);
+    builder.writeInt8(shift);
+    builder.writeInt8(type);
+    builder.writeInt8(addr);
+    builder.writeInt8(ch);
+    return builder.offset();
+  }
 
+  unpack(): DeviceItemT {
+    return new DeviceItemT(this.ch(), this.addr(), this.type(), this.shift(), this.uid());
+  }
 
-unpack(): DeviceItemT {
-  return new DeviceItemT(
-    this.ch(),
-    this.addr(),
-    this.type(),
-    this.shift(),
-    this.uid()
-  );
-}
-
-
-unpackTo(_o: DeviceItemT): void {
-  _o.ch = this.ch();
-  _o.addr = this.addr();
-  _o.type = this.type();
-  _o.shift = this.shift();
-  _o.uid = this.uid();
-}
+  unpackTo(_o: DeviceItemT): void {
+    _o.ch = this.ch();
+    _o.addr = this.addr();
+    _o.type = this.type();
+    _o.shift = this.shift();
+    _o.uid = this.uid();
+  }
 }
 
 export class DeviceItemT implements flatbuffers.IGeneratedObject {
-constructor(
-  public ch: number = 0,
-  public addr: number = 0,
-  public type: ModuleType = ModuleType.UNKNOWN,
-  public shift: number = 0,
-  public uid: bigint = BigInt('0')
-){}
+  constructor(
+    public ch: number = 0,
+    public addr: number = 0,
+    public type: ModuleType = ModuleType.UNKNOWN,
+    public shift: number = 0,
+    public uid: bigint = BigInt('0'),
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return DeviceItem.createDeviceItem(builder,
-    this.ch,
-    this.addr,
-    this.type,
-    this.shift,
-    this.uid
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return DeviceItem.createDeviceItem(
+      builder,
+      this.ch,
+      this.addr,
+      this.type,
+      this.shift,
+      this.uid,
+    );
+  }
 }

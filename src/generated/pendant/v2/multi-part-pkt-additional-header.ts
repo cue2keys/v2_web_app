@@ -4,62 +4,61 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-
-
-export class MultiPartPktAdditionalHeader implements flatbuffers.IUnpackableObject<MultiPartPktAdditionalHeaderT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+export class MultiPartPktAdditionalHeader
+  implements flatbuffers.IUnpackableObject<MultiPartPktAdditionalHeaderT>
+{
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):MultiPartPktAdditionalHeader {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): MultiPartPktAdditionalHeader {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-part():number {
-  return this.bb!.readUint8(this.bb_pos);
-}
+  part(): number {
+    return this.bb!.readUint8(this.bb_pos);
+  }
 
-totalParts():number {
-  return this.bb!.readUint8(this.bb_pos + 1);
-}
+  totalParts(): number {
+    return this.bb!.readUint8(this.bb_pos + 1);
+  }
 
-static sizeOf():number {
-  return 2;
-}
+  static sizeOf(): number {
+    return 2;
+  }
 
-static createMultiPartPktAdditionalHeader(builder:flatbuffers.Builder, part: number, total_parts: number):flatbuffers.Offset {
-  builder.prep(1, 2);
-  builder.writeInt8(total_parts);
-  builder.writeInt8(part);
-  return builder.offset();
-}
+  static createMultiPartPktAdditionalHeader(
+    builder: flatbuffers.Builder,
+    part: number,
+    total_parts: number,
+  ): flatbuffers.Offset {
+    builder.prep(1, 2);
+    builder.writeInt8(total_parts);
+    builder.writeInt8(part);
+    return builder.offset();
+  }
 
+  unpack(): MultiPartPktAdditionalHeaderT {
+    return new MultiPartPktAdditionalHeaderT(this.part(), this.totalParts());
+  }
 
-unpack(): MultiPartPktAdditionalHeaderT {
-  return new MultiPartPktAdditionalHeaderT(
-    this.part(),
-    this.totalParts()
-  );
-}
-
-
-unpackTo(_o: MultiPartPktAdditionalHeaderT): void {
-  _o.part = this.part();
-  _o.totalParts = this.totalParts();
-}
+  unpackTo(_o: MultiPartPktAdditionalHeaderT): void {
+    _o.part = this.part();
+    _o.totalParts = this.totalParts();
+  }
 }
 
 export class MultiPartPktAdditionalHeaderT implements flatbuffers.IGeneratedObject {
-constructor(
-  public part: number = 0,
-  public totalParts: number = 0
-){}
+  constructor(
+    public part: number = 0,
+    public totalParts: number = 0,
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return MultiPartPktAdditionalHeader.createMultiPartPktAdditionalHeader(builder,
-    this.part,
-    this.totalParts
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return MultiPartPktAdditionalHeader.createMultiPartPktAdditionalHeader(
+      builder,
+      this.part,
+      this.totalParts,
+    );
+  }
 }

@@ -7,5 +7,5 @@ export enum SetI2CAddrCmdErrorCode {
   ADDRESS_UNCHANGED = 1,
   INVALID_NEW_ADDRESS = 2,
   ALREADY_IN_USE = 3,
-  WRITE_FAILED = 4
+  WRITE_FAILED = 4,
 }

@@ -13,6 +13,8 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardTitle } from '../ui/card';
 import { useDeviceStore } from '@/store/deviceStore';
 
+const FIRMWARE_RELEASES_URL = 'https://github.com/cue2keys/v2_qmk_fw/releases/';
+
 interface Props {
   onParamChange: (p: SchemaItem, v: ParamValue) => void;
   onReadParam: (p: SchemaItem) => Promise<void>;
@@ -111,6 +113,15 @@ export const OtherSection: FC<Props> = ({
                       firmwareStatusText
                     )}
                   </span>
+                  <span>Releases</span>
+                  <a
+                    href={FIRMWARE_RELEASES_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline underline-offset-2"
+                  >
+                    GitHubのリリース一覧
+                  </a>
                   <span>VID</span>
                   <span>{formatUsbId(deviceInfo.vendorId)}</span>
                   <span>PID</span>

@@ -4,67 +4,68 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-
-
-export class GetTrackballConnectedResponse implements flatbuffers.IUnpackableObject<GetTrackballConnectedResponseT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+export class GetTrackballConnectedResponse
+  implements flatbuffers.IUnpackableObject<GetTrackballConnectedResponseT>
+{
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):GetTrackballConnectedResponse {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
-
-count():number {
-  return this.bb!.readUint8(this.bb_pos);
-}
-
-flags(index: number):number|null {
-    return this.bb!.readUint8(this.bb_pos + 1 + index);
-}
-
-static sizeOf():number {
-  return 5;
-}
-
-static createGetTrackballConnectedResponse(builder:flatbuffers.Builder, count: number, flags: number[]):flatbuffers.Offset {
-  builder.prep(1, 5);
-
-  for (let i = 3; i >= 0; --i) {
-    builder.writeInt8((flags?.[i] ?? 0));
-
+  __init(i: number, bb: flatbuffers.ByteBuffer): GetTrackballConnectedResponse {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
   }
 
-  builder.writeInt8(count);
-  return builder.offset();
-}
+  count(): number {
+    return this.bb!.readUint8(this.bb_pos);
+  }
 
+  flags(index: number): number | null {
+    return this.bb!.readUint8(this.bb_pos + 1 + index);
+  }
 
-unpack(): GetTrackballConnectedResponseT {
-  return new GetTrackballConnectedResponseT(
-    this.count(),
-    this.bb!.createScalarList<number>(this.flags.bind(this), 4)
-  );
-}
+  static sizeOf(): number {
+    return 5;
+  }
 
+  static createGetTrackballConnectedResponse(
+    builder: flatbuffers.Builder,
+    count: number,
+    flags: number[],
+  ): flatbuffers.Offset {
+    builder.prep(1, 5);
 
-unpackTo(_o: GetTrackballConnectedResponseT): void {
-  _o.count = this.count();
-  _o.flags = this.bb!.createScalarList<number>(this.flags.bind(this), 4);
-}
+    for (let i = 3; i >= 0; --i) {
+      builder.writeInt8(flags?.[i] ?? 0);
+    }
+
+    builder.writeInt8(count);
+    return builder.offset();
+  }
+
+  unpack(): GetTrackballConnectedResponseT {
+    return new GetTrackballConnectedResponseT(
+      this.count(),
+      this.bb!.createScalarList<number>(this.flags.bind(this), 4),
+    );
+  }
+
+  unpackTo(_o: GetTrackballConnectedResponseT): void {
+    _o.count = this.count();
+    _o.flags = this.bb!.createScalarList<number>(this.flags.bind(this), 4);
+  }
 }
 
 export class GetTrackballConnectedResponseT implements flatbuffers.IGeneratedObject {
-constructor(
-  public count: number = 0,
-  public flags: (number)[] = []
-){}
+  constructor(
+    public count: number = 0,
+    public flags: number[] = [],
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return GetTrackballConnectedResponse.createGetTrackballConnectedResponse(builder,
-    this.count,
-    this.flags
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return GetTrackballConnectedResponse.createGetTrackballConnectedResponse(
+      builder,
+      this.count,
+      this.flags,
+    );
+  }
 }

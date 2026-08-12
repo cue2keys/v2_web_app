@@ -17,6 +17,7 @@ export interface SchemaItem {
   options?: EnumOption[];
   default: number | string | boolean;
   maxLen?: number;
+  optional?: boolean;
 }
 
 export interface KbConfigItem {
@@ -29,6 +30,7 @@ export interface KbConfigItem {
   mod_step_ary?: number[];
   description?: string;
   description_ja?: string;
+  optional?: boolean;
 }
 
 export function mapKbConfigToSchema(cfg: KbConfigItem[]): SchemaItem[] {
@@ -67,6 +69,12 @@ export function mapKbConfigToSchema(cfg: KbConfigItem[]): SchemaItem[] {
         return Array.from({ length: upper + 1 }, (_, i) => ({
           value: i,
           label: `${50 + i * 25} ms`,
+        }));
+      }
+      if (c.name === 'mouse_layer_target') {
+        return Array.from({ length: max + 1 }, (_, i) => ({
+          value: i,
+          label: `レイヤー ${i}`,
         }));
       }
       if (c.name === 'display_mode') {
@@ -110,6 +118,7 @@ export function mapKbConfigToSchema(cfg: KbConfigItem[]): SchemaItem[] {
       ui,
       options,
       default: options ? Math.min(Math.max(0, c.default), options.length - 1) : c.default,
+      optional: c.optional,
     };
   });
 }

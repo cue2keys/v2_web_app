@@ -14,5 +14,5 @@ export enum ModuleType {
   V2_MagKeys4 = 8,
   I2C_MUX = 9,
   DISPLAY = 10,
-  END = 11
+  END = 11,
 }

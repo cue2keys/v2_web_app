@@ -13,5 +13,5 @@ export enum HIDCommandValueID {
   get_keypress = 107,
   get_magkey_config = 108,
   set_magkey_config = 109,
-  get_trackball_connected = 110
+  get_trackball_connected = 110,
 }

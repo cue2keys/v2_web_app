@@ -6,61 +6,57 @@ import * as flatbuffers from 'flatbuffers';
 
 import { SetI2CAddrCmdErrorCode } from '../../pendant/v2/set-i2-caddr-cmd-error-code.js';
 
-
-export class SetI2CAddrCmdResponse implements flatbuffers.IUnpackableObject<SetI2CAddrCmdResponseT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+export class SetI2CAddrCmdResponse
+  implements flatbuffers.IUnpackableObject<SetI2CAddrCmdResponseT>
+{
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):SetI2CAddrCmdResponse {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): SetI2CAddrCmdResponse {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-success():boolean {
-  return !!this.bb!.readInt8(this.bb_pos);
-}
+  success(): boolean {
+    return !!this.bb!.readInt8(this.bb_pos);
+  }
 
-errorCode():SetI2CAddrCmdErrorCode {
-  return this.bb!.readUint8(this.bb_pos + 1);
-}
+  errorCode(): SetI2CAddrCmdErrorCode {
+    return this.bb!.readUint8(this.bb_pos + 1);
+  }
 
-static sizeOf():number {
-  return 2;
-}
+  static sizeOf(): number {
+    return 2;
+  }
 
-static createSetI2CAddrCmdResponse(builder:flatbuffers.Builder, success: boolean, error_code: SetI2CAddrCmdErrorCode):flatbuffers.Offset {
-  builder.prep(1, 2);
-  builder.writeInt8(error_code);
-  builder.writeInt8(Number(Boolean(success)));
-  return builder.offset();
-}
+  static createSetI2CAddrCmdResponse(
+    builder: flatbuffers.Builder,
+    success: boolean,
+    error_code: SetI2CAddrCmdErrorCode,
+  ): flatbuffers.Offset {
+    builder.prep(1, 2);
+    builder.writeInt8(error_code);
+    builder.writeInt8(Number(Boolean(success)));
+    return builder.offset();
+  }
 
+  unpack(): SetI2CAddrCmdResponseT {
+    return new SetI2CAddrCmdResponseT(this.success(), this.errorCode());
+  }
 
-unpack(): SetI2CAddrCmdResponseT {
-  return new SetI2CAddrCmdResponseT(
-    this.success(),
-    this.errorCode()
-  );
-}
-
-
-unpackTo(_o: SetI2CAddrCmdResponseT): void {
-  _o.success = this.success();
-  _o.errorCode = this.errorCode();
-}
+  unpackTo(_o: SetI2CAddrCmdResponseT): void {
+    _o.success = this.success();
+    _o.errorCode = this.errorCode();
+  }
 }
 
 export class SetI2CAddrCmdResponseT implements flatbuffers.IGeneratedObject {
-constructor(
-  public success: boolean = false,
-  public errorCode: SetI2CAddrCmdErrorCode = SetI2CAddrCmdErrorCode.SUCCESS
-){}
+  constructor(
+    public success: boolean = false,
+    public errorCode: SetI2CAddrCmdErrorCode = SetI2CAddrCmdErrorCode.SUCCESS,
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return SetI2CAddrCmdResponse.createSetI2CAddrCmdResponse(builder,
-    this.success,
-    this.errorCode
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return SetI2CAddrCmdResponse.createSetI2CAddrCmdResponse(builder, this.success, this.errorCode);
+  }
 }

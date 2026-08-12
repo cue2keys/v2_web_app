@@ -27,11 +27,12 @@ export function useParamActions() {
     })),
   );
   const { runWriteAction } = useWriteActionFeedback();
-  const { schema, params, setParam, setLoadedFor, setParams, setLoaded, setJsonText } =
+  const { schema, params, loaded, setParam, setLoadedFor, setParams, setLoaded, setJsonText } =
     useParamStore(
       useShallow((state) => ({
         schema: state.schema,
         params: state.params,
+        loaded: state.loaded,
         setParam: state.setParam,
         setLoadedFor: state.setLoadedFor,
         setParams: state.setParams,
@@ -179,6 +180,9 @@ export function useParamActions() {
       failures: [],
     };
     for (const p of activeSchema) {
+      if (p.optional && !loaded[p.id]) {
+        continue;
+      }
       summary.attempted += 1;
       try {
         await commitParam(p, paramValueOf(p));

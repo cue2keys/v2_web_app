@@ -6,5 +6,5 @@ export enum MagKeyRegister {
   GET_DATA_6_BYTES = 10,
   GET_DATA_4_BYTES = 16,
   GET_DATA_2_BYTES = 20,
-  GET_DATA_1_BYTE = 22
+  GET_DATA_1_BYTE = 22,
 }

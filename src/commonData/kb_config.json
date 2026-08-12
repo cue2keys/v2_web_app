@@ -366,5 +366,21 @@
     "max": 3,
     "description": "マグネキー data resolution (0: 12bit, 1: 8bit, 2: 4bit, 3: 2bit)",
     "description_ja": "マグネキーデータ解像度 (取得byte数)"
+  },
+  {
+    "name": "_reserved_47",
+    "bit": 0,
+    "default": 0,
+    "max": 0,
+    "description": "Reserved parameter ID 47"
+  },
+  {
+    "name": "mouse_layer_target",
+    "bit": 5,
+    "default": 3,
+    "max": 7,
+    "optional": true,
+    "description": "Auto mouse target layer (0-7)",
+    "description_ja": "自動マウス遷移先レイヤー（FW 2.2.0以降で対応）"
   }
 ]
