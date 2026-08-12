@@ -85,7 +85,9 @@ export function App() {
   );
   const activeSchema = useMemo(() => getActiveSchema(schema), [schema]);
   const isConnected = connected && !!deviceRef.current;
-  const hasLoadedAll = activeSchema.length > 0 && activeSchema.every((p) => loaded[p.id] === true);
+  const hasLoadedAll =
+    activeSchema.length > 0 &&
+    activeSchema.every((p) => p.optional === true || loaded[p.id] === true);
   const hasSearch = search.trim().length > 0;
   const [settingsCategory, setSettingsCategory] = useState<SettingsCategoryId>('devices');
 

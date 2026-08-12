@@ -2,10 +2,11 @@ import type { SchemaItem } from './schema';
 
 export type ParamLikeValue = number | string;
 
-export const isDummyTrackballParam = (item: SchemaItem) => item.key === '_dummy_tb';
+export const isInternalSchemaItem = (item: SchemaItem) =>
+  item.key === '_dummy_tb' || item.key.startsWith('_reserved_');
 
 export const getActiveSchema = (schema: SchemaItem[]) =>
-  schema.filter((item) => !isDummyTrackballParam(item));
+  schema.filter((item) => !isInternalSchemaItem(item));
 
 export const defaultParamValue = (item: SchemaItem): ParamLikeValue =>
   item.type === 'bool' ? (item.default ? 1 : 0) : (item.default as number | string);
