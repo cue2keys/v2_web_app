@@ -4,62 +4,61 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-
-
-export class SetDisplayKeypressTargetCmd implements flatbuffers.IUnpackableObject<SetDisplayKeypressTargetCmdT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+export class SetDisplayKeypressTargetCmd
+  implements flatbuffers.IUnpackableObject<SetDisplayKeypressTargetCmdT>
+{
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):SetDisplayKeypressTargetCmd {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): SetDisplayKeypressTargetCmd {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-keypressRow():number {
-  return this.bb!.readUint8(this.bb_pos);
-}
+  keypressRow(): number {
+    return this.bb!.readUint8(this.bb_pos);
+  }
 
-keypressCol():number {
-  return this.bb!.readUint8(this.bb_pos + 1);
-}
+  keypressCol(): number {
+    return this.bb!.readUint8(this.bb_pos + 1);
+  }
 
-static sizeOf():number {
-  return 2;
-}
+  static sizeOf(): number {
+    return 2;
+  }
 
-static createSetDisplayKeypressTargetCmd(builder:flatbuffers.Builder, keypress_row: number, keypress_col: number):flatbuffers.Offset {
-  builder.prep(1, 2);
-  builder.writeInt8(keypress_col);
-  builder.writeInt8(keypress_row);
-  return builder.offset();
-}
+  static createSetDisplayKeypressTargetCmd(
+    builder: flatbuffers.Builder,
+    keypress_row: number,
+    keypress_col: number,
+  ): flatbuffers.Offset {
+    builder.prep(1, 2);
+    builder.writeInt8(keypress_col);
+    builder.writeInt8(keypress_row);
+    return builder.offset();
+  }
 
+  unpack(): SetDisplayKeypressTargetCmdT {
+    return new SetDisplayKeypressTargetCmdT(this.keypressRow(), this.keypressCol());
+  }
 
-unpack(): SetDisplayKeypressTargetCmdT {
-  return new SetDisplayKeypressTargetCmdT(
-    this.keypressRow(),
-    this.keypressCol()
-  );
-}
-
-
-unpackTo(_o: SetDisplayKeypressTargetCmdT): void {
-  _o.keypressRow = this.keypressRow();
-  _o.keypressCol = this.keypressCol();
-}
+  unpackTo(_o: SetDisplayKeypressTargetCmdT): void {
+    _o.keypressRow = this.keypressRow();
+    _o.keypressCol = this.keypressCol();
+  }
 }
 
 export class SetDisplayKeypressTargetCmdT implements flatbuffers.IGeneratedObject {
-constructor(
-  public keypressRow: number = 0,
-  public keypressCol: number = 0
-){}
+  constructor(
+    public keypressRow: number = 0,
+    public keypressCol: number = 0,
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return SetDisplayKeypressTargetCmd.createSetDisplayKeypressTargetCmd(builder,
-    this.keypressRow,
-    this.keypressCol
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return SetDisplayKeypressTargetCmd.createSetDisplayKeypressTargetCmd(
+      builder,
+      this.keypressRow,
+      this.keypressCol,
+    );
+  }
 }

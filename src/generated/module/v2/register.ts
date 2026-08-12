@@ -6,5 +6,5 @@ export enum Register {
   GET_TYPE = 0,
   GET_UID = 1,
   CHANGE_ADDR = 9,
-  GET_DATA = 10
+  GET_DATA = 10,
 }

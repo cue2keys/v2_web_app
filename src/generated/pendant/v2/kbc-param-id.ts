@@ -52,5 +52,5 @@ export enum KBC_ParamID {
   KBC_magkey_data_bytes = 46,
   KBC_RESERVED_47 = 47,
   KBC_mouse_layer_target = 48,
-  KBC_VALUE_ID_END = 49
+  KBC_VALUE_ID_END = 49,
 }

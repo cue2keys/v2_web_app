@@ -4,62 +4,55 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-
-
 export class GetKeypressCmd implements flatbuffers.IUnpackableObject<GetKeypressCmdT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):GetKeypressCmd {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): GetKeypressCmd {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-row():number {
-  return this.bb!.readUint8(this.bb_pos);
-}
+  row(): number {
+    return this.bb!.readUint8(this.bb_pos);
+  }
 
-col():number {
-  return this.bb!.readUint8(this.bb_pos + 1);
-}
+  col(): number {
+    return this.bb!.readUint8(this.bb_pos + 1);
+  }
 
-static sizeOf():number {
-  return 2;
-}
+  static sizeOf(): number {
+    return 2;
+  }
 
-static createGetKeypressCmd(builder:flatbuffers.Builder, row: number, col: number):flatbuffers.Offset {
-  builder.prep(1, 2);
-  builder.writeInt8(col);
-  builder.writeInt8(row);
-  return builder.offset();
-}
+  static createGetKeypressCmd(
+    builder: flatbuffers.Builder,
+    row: number,
+    col: number,
+  ): flatbuffers.Offset {
+    builder.prep(1, 2);
+    builder.writeInt8(col);
+    builder.writeInt8(row);
+    return builder.offset();
+  }
 
+  unpack(): GetKeypressCmdT {
+    return new GetKeypressCmdT(this.row(), this.col());
+  }
 
-unpack(): GetKeypressCmdT {
-  return new GetKeypressCmdT(
-    this.row(),
-    this.col()
-  );
-}
-
-
-unpackTo(_o: GetKeypressCmdT): void {
-  _o.row = this.row();
-  _o.col = this.col();
-}
+  unpackTo(_o: GetKeypressCmdT): void {
+    _o.row = this.row();
+    _o.col = this.col();
+  }
 }
 
 export class GetKeypressCmdT implements flatbuffers.IGeneratedObject {
-constructor(
-  public row: number = 0,
-  public col: number = 0
-){}
+  constructor(
+    public row: number = 0,
+    public col: number = 0,
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return GetKeypressCmd.createGetKeypressCmd(builder,
-    this.row,
-    this.col
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return GetKeypressCmd.createGetKeypressCmd(builder, this.row, this.col);
+  }
 }

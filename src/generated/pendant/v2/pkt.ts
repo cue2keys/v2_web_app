@@ -6,75 +6,79 @@ import * as flatbuffers from 'flatbuffers';
 
 import { PktHeader, PktHeaderT } from '../../pendant/v2/pkt-header.js';
 
-
 export class Pkt implements flatbuffers.IUnpackableObject<PktT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):Pkt {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
-
-headers(obj?:PktHeader):PktHeader|null {
-  return (obj || new PktHeader()).__init(this.bb_pos, this.bb!);
-}
-
-data(index: number):number|null {
-    return this.bb!.readUint8(this.bb_pos + 5 + index);
-}
-
-static sizeOf():number {
-  return 32;
-}
-
-static createPkt(builder:flatbuffers.Builder, headers_command_id: number, headers_channel_id: number, headers_seq: number, headers_value_id: number, headers_data_length: number, data: number[]):flatbuffers.Offset {
-  builder.prep(1, 32);
-
-  for (let i = 26; i >= 0; --i) {
-    builder.writeInt8((data?.[i] ?? 0));
-
+  __init(i: number, bb: flatbuffers.ByteBuffer): Pkt {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
   }
 
-  builder.prep(1, 5);
-  builder.writeInt8(headers_data_length);
-  builder.writeInt8(headers_value_id);
-  builder.writeInt8(headers_seq);
-  builder.writeInt8(headers_channel_id);
-  builder.writeInt8(headers_command_id);
-  return builder.offset();
-}
+  headers(obj?: PktHeader): PktHeader | null {
+    return (obj || new PktHeader()).__init(this.bb_pos, this.bb!);
+  }
 
+  data(index: number): number | null {
+    return this.bb!.readUint8(this.bb_pos + 5 + index);
+  }
 
-unpack(): PktT {
-  return new PktT(
-    (this.headers() !== null ? this.headers()!.unpack() : null),
-    this.bb!.createScalarList<number>(this.data.bind(this), 27)
-  );
-}
+  static sizeOf(): number {
+    return 32;
+  }
 
+  static createPkt(
+    builder: flatbuffers.Builder,
+    headers_command_id: number,
+    headers_channel_id: number,
+    headers_seq: number,
+    headers_value_id: number,
+    headers_data_length: number,
+    data: number[],
+  ): flatbuffers.Offset {
+    builder.prep(1, 32);
 
-unpackTo(_o: PktT): void {
-  _o.headers = (this.headers() !== null ? this.headers()!.unpack() : null);
-  _o.data = this.bb!.createScalarList<number>(this.data.bind(this), 27);
-}
+    for (let i = 26; i >= 0; --i) {
+      builder.writeInt8(data?.[i] ?? 0);
+    }
+
+    builder.prep(1, 5);
+    builder.writeInt8(headers_data_length);
+    builder.writeInt8(headers_value_id);
+    builder.writeInt8(headers_seq);
+    builder.writeInt8(headers_channel_id);
+    builder.writeInt8(headers_command_id);
+    return builder.offset();
+  }
+
+  unpack(): PktT {
+    return new PktT(
+      this.headers() !== null ? this.headers()!.unpack() : null,
+      this.bb!.createScalarList<number>(this.data.bind(this), 27),
+    );
+  }
+
+  unpackTo(_o: PktT): void {
+    _o.headers = this.headers() !== null ? this.headers()!.unpack() : null;
+    _o.data = this.bb!.createScalarList<number>(this.data.bind(this), 27);
+  }
 }
 
 export class PktT implements flatbuffers.IGeneratedObject {
-constructor(
-  public headers: PktHeaderT|null = null,
-  public data: (number)[] = []
-){}
+  constructor(
+    public headers: PktHeaderT | null = null,
+    public data: number[] = [],
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return Pkt.createPkt(builder,
-    (this.headers?.commandId ?? 0),
-    (this.headers?.channelId ?? 0),
-    (this.headers?.seq ?? 0),
-    (this.headers?.valueId ?? 0),
-    (this.headers?.dataLength ?? 0),
-    this.data
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return Pkt.createPkt(
+      builder,
+      this.headers?.commandId ?? 0,
+      this.headers?.channelId ?? 0,
+      this.headers?.seq ?? 0,
+      this.headers?.valueId ?? 0,
+      this.headers?.dataLength ?? 0,
+      this.data,
+    );
+  }
 }

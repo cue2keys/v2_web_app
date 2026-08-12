@@ -4,63 +4,56 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-
-
 export class GetKeypressResponse implements flatbuffers.IUnpackableObject<GetKeypressResponseT> {
-  bb: flatbuffers.ByteBuffer|null = null;
+  bb: flatbuffers.ByteBuffer | null = null;
   bb_pos = 0;
-  __init(i:number, bb:flatbuffers.ByteBuffer):GetKeypressResponse {
-  this.bb_pos = i;
-  this.bb = bb;
-  return this;
-}
+  __init(i: number, bb: flatbuffers.ByteBuffer): GetKeypressResponse {
+    this.bb_pos = i;
+    this.bb = bb;
+    return this;
+  }
 
-value():number {
-  return this.bb!.readUint16(this.bb_pos);
-}
+  value(): number {
+    return this.bb!.readUint16(this.bb_pos);
+  }
 
-isMagkey():boolean {
-  return !!this.bb!.readInt8(this.bb_pos + 2);
-}
+  isMagkey(): boolean {
+    return !!this.bb!.readInt8(this.bb_pos + 2);
+  }
 
-static sizeOf():number {
-  return 4;
-}
+  static sizeOf(): number {
+    return 4;
+  }
 
-static createGetKeypressResponse(builder:flatbuffers.Builder, value: number, is_magkey: boolean):flatbuffers.Offset {
-  builder.prep(2, 4);
-  builder.pad(1);
-  builder.writeInt8(Number(Boolean(is_magkey)));
-  builder.writeInt16(value);
-  return builder.offset();
-}
+  static createGetKeypressResponse(
+    builder: flatbuffers.Builder,
+    value: number,
+    is_magkey: boolean,
+  ): flatbuffers.Offset {
+    builder.prep(2, 4);
+    builder.pad(1);
+    builder.writeInt8(Number(Boolean(is_magkey)));
+    builder.writeInt16(value);
+    return builder.offset();
+  }
 
+  unpack(): GetKeypressResponseT {
+    return new GetKeypressResponseT(this.value(), this.isMagkey());
+  }
 
-unpack(): GetKeypressResponseT {
-  return new GetKeypressResponseT(
-    this.value(),
-    this.isMagkey()
-  );
-}
-
-
-unpackTo(_o: GetKeypressResponseT): void {
-  _o.value = this.value();
-  _o.isMagkey = this.isMagkey();
-}
+  unpackTo(_o: GetKeypressResponseT): void {
+    _o.value = this.value();
+    _o.isMagkey = this.isMagkey();
+  }
 }
 
 export class GetKeypressResponseT implements flatbuffers.IGeneratedObject {
-constructor(
-  public value: number = 0,
-  public isMagkey: boolean = false
-){}
+  constructor(
+    public value: number = 0,
+    public isMagkey: boolean = false,
+  ) {}
 
-
-pack(builder:flatbuffers.Builder): flatbuffers.Offset {
-  return GetKeypressResponse.createGetKeypressResponse(builder,
-    this.value,
-    this.isMagkey
-  );
-}
+  pack(builder: flatbuffers.Builder): flatbuffers.Offset {
+    return GetKeypressResponse.createGetKeypressResponse(builder, this.value, this.isMagkey);
+  }
 }

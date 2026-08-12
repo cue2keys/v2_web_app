@@ -5,15 +5,24 @@
 export { DeviceItem, DeviceItemT } from './v2/device-item.js';
 export { GetKeypressCmd, GetKeypressCmdT } from './v2/get-keypress-cmd.js';
 export { GetKeypressResponse, GetKeypressResponseT } from './v2/get-keypress-response.js';
-export { GetTrackballConnectedResponse, GetTrackballConnectedResponseT } from './v2/get-trackball-connected-response.js';
+export {
+  GetTrackballConnectedResponse,
+  GetTrackballConnectedResponseT,
+} from './v2/get-trackball-connected-response.js';
 export { HIDCommandValueID } from './v2/hidcommand-value-id.js';
 export { KBC_ParamID } from './v2/kbc-param-id.js';
 export { ModuleType } from './v2/module-type.js';
 export { MultiPartPkt, MultiPartPktT } from './v2/multi-part-pkt.js';
-export { MultiPartPktAdditionalHeader, MultiPartPktAdditionalHeaderT } from './v2/multi-part-pkt-additional-header.js';
+export {
+  MultiPartPktAdditionalHeader,
+  MultiPartPktAdditionalHeaderT,
+} from './v2/multi-part-pkt-additional-header.js';
 export { Pkt, PktT } from './v2/pkt.js';
 export { PktHeader, PktHeaderT } from './v2/pkt-header.js';
-export { SetDisplayKeypressTargetCmd, SetDisplayKeypressTargetCmdT } from './v2/set-display-keypress-target-cmd.js';
+export {
+  SetDisplayKeypressTargetCmd,
+  SetDisplayKeypressTargetCmdT,
+} from './v2/set-display-keypress-target-cmd.js';
 export { SetI2CAddrCmd, SetI2CAddrCmdT } from './v2/set-i2-caddr-cmd.js';
 export { SetI2CAddrCmdErrorCode } from './v2/set-i2-caddr-cmd-error-code.js';
 export { SetI2CAddrCmdResponse, SetI2CAddrCmdResponseT } from './v2/set-i2-caddr-cmd-response.js';

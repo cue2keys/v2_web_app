@@ -6,5 +6,5 @@ export enum Type {
   UNKNOWN = 0,
   KEY4 = 1,
   RE = 2,
-  MAGKEY4 = 3
+  MAGKEY4 = 3,
 }
